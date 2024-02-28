@@ -1,18 +1,17 @@
 <?php
 
-class CityController {
-    public function getCity() {
-        // Lógica para processar a requisição de /api/address
-        // Por exemplo, você pode buscar endereços de um banco de dados ou de um serviço externo
+class AddressController {
+
+    public function getState() {
         $addresses = array(
             array(
                 'street' => 'Rua A',
-                'city' => 'Barueri',
+                'city' => 'Cidade A',
                 'state' => 'Estado A'
             ),
             array(
                 'street' => 'Rua B',
-                'city' => 'Osasco',
+                'city' => 'Cidade B',
                 'state' => 'Estado B'
             )
         );
@@ -22,24 +21,19 @@ class CityController {
         echo json_encode($addresses);
     }
 
-    public function getCityById() {
-        // Lógica para processar a requisição de /api/address
-        // Por exemplo, você pode buscar endereços de um banco de dados ou de um serviço externo
+    public function getStateById() {
         $addresses = array(
             array(
                 'street' => 'Rua A',
-                'city' => 'Barueri',
+                'city' => 'Cidade A',
                 'state' => 'Estado A'
             ),
-            array(
-                'street' => 'Rua B',
-                'city' => 'Osasco',
-                'state' => 'Estado B'
-            )
+
         );
 
         // Retorna os endereços como uma resposta JSON
         header('Content-Type: application/json');
         echo json_encode($addresses);
     }
+
 }

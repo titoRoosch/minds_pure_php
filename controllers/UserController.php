@@ -1,9 +1,10 @@
 <?php
 
-require_once '../operations/User/UserCreate.php';
-require_once '../operations/User/UserDelete.php';
-require_once '../operations/User/UserUpdate.php';
-require_once '../operations/User/UserSearcher.php';
+require_once 'operations/User/UserCreate.php';
+require_once 'operations/User/UserDelete.php';
+require_once 'operations/User/UserUpdate.php';
+require_once 'operations/User/UserSearcher.php';
+require_once 'database.php';
 
 class UserController
 {
@@ -12,7 +13,7 @@ class UserController
 
         $db = new Database('localhost', 'dbname', 'username', 'password');
 
-        $operation = new UserSearcher();
+        $operation = new UserSearcher($db);
         $users = $operation->search();
 
         header('Content-Type: application/json');

@@ -2,7 +2,7 @@
 
 class AddressController {
 
-    public function getAddresses() {
+    public function getAddress() {
         $addresses = array(
             array(
                 'street' => 'Rua A',
@@ -36,15 +36,4 @@ class AddressController {
         echo json_encode($addresses);
     }
 
-    public function createAddress() {
-
-    }
-
-    public function updateAddress() {
-
-    }
-
-    public function deleteAddress() {
-        
-    }
 }
