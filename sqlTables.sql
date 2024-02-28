@@ -93,18 +93,32 @@ INSERT INTO states (name,acr,created_at,updated_at) VALUES
 	 ('Sergipe','SE',NULL,NULL),
 	 ('Tocantins','TO',NULL,NULL);
 
-INSERT INTO cities (name,state_id,created_at,updated_at) VALUES
-	 ('São Paulo',1,NULL,NULL),
-	 ('Osasco',1,NULL,NULL),
-	 ('Barueri',1,NULL,NULL),
-	 ('Paraty',2,NULL,NULL),
-	 ('Rio de Janeiro',2,NULL,NULL),
-	 ('Niterói',2,NULL,NULL);
 
-INSERT INTO addresses (street,postal_code,complement,state_id,city_id,created_at,updated_at) VALUES
-	 ('Rua Rod Cormier','01254623','bloco b',1,1,'2024-02-28 00:44:21','2024-02-28 00:44:21'),
-	 ('Rua Melany Christiansen','01254623','bloco b',1,1,'2024-02-28 00:44:21','2024-02-28 00:44:21'),
-	 ('Rua Ezra Fisher','01254623','bloco b',1,1,'2024-02-28 00:44:21','2024-02-28 00:44:21');
 	 
-	 
+INSERT INTO cities (name, state_id, created_at, updated_at)
+SELECT 'São Paulo', id, NOW(), NOW()
+FROM states
+WHERE name = 'São Paulo'
+LIMIT 1;
+
+INSERT INTO cities (name, state_id, created_at, updated_at)
+SELECT 'Osasco', id, NOW(), NOW()
+FROM states
+WHERE name = 'São Paulo'
+LIMIT 1;
+
+INSERT INTO cities (name, state_id, created_at, updated_at)
+SELECT 'Rio de Janeiro', id, NOW(), NOW()
+FROM states
+WHERE name = 'Rio de Janeiro'
+LIMIT 1;
+
+INSERT INTO addresses (street,postal_code,complement,state_id,city_id)
+SELECT 'Rua Rod Cormier','01254623','bloco b', state_id, id
+from cities WHERE name = 'São Paulo'
+
+INSERT INTO addresses (street,postal_code,complement,state_id,city_id)
+SELECT 'Rua Melany Christiansen','01254623','bloco b', state_id, id
+from cities WHERE name = 'Rio de Janeiro'
+
 	 
