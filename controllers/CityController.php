@@ -1,45 +1,26 @@
 <?php
 
+require_once 'operations/City/CitySearcher.php';
+require_once 'database.php';
+
 class CityController {
     public function getCity() {
-        // Lógica para processar a requisição de /api/address
-        // Por exemplo, você pode buscar endereços de um banco de dados ou de um serviço externo
-        $addresses = array(
-            array(
-                'street' => 'Rua A',
-                'city' => 'Barueri',
-                'state' => 'Estado A'
-            ),
-            array(
-                'street' => 'Rua B',
-                'city' => 'Osasco',
-                'state' => 'Estado B'
-            )
-        );
+        $db = new Database();
 
-        // Retorna os endereços como uma resposta JSON
+        $operation = new CitySearcher($db);
+        $city = $operation->search();
+
         header('Content-Type: application/json');
-        echo json_encode($addresses);
+        echo json_encode($city);
     }
 
     public function getCityById() {
-        // Lógica para processar a requisição de /api/address
-        // Por exemplo, você pode buscar endereços de um banco de dados ou de um serviço externo
-        $addresses = array(
-            array(
-                'street' => 'Rua A',
-                'city' => 'Barueri',
-                'state' => 'Estado A'
-            ),
-            array(
-                'street' => 'Rua B',
-                'city' => 'Osasco',
-                'state' => 'Estado B'
-            )
-        );
+        $db = new Database();
 
-        // Retorna os endereços como uma resposta JSON
+        $operation = new CitySearcher($db);
+        $city = $operation->search();
+
         header('Content-Type: application/json');
-        echo json_encode($addresses);
+        echo json_encode($city);
     }
 }

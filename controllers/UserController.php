@@ -11,50 +11,53 @@ class UserController
 
     public function getUsers() {
 
-        echo 'teste';
         $db = new Database();
 
         $operation = new UserSearcher($db);
         $users = $operation->search();
 
         header('Content-Type: application/json');
-        echo json_encode($addresses);
+        echo json_encode($users);
     }
 
     public function getUserById() {
         
+        $db = new Database();
         $operation = new UserSearcher();
 
-        $user = $operation->search($req->user_id);
+        $user = $operation->search($_REQUEST['user_id']);
 
         header('Content-Type: application/json');
-        echo json_encode($addresses);
+        echo json_encode($user);
     }
 
     public function createUser() {
+        $db = new Database();
         $params = $_REQUEST;
         $operation = new UserCreate($params);
         $users = $operation->create();
 
         header('Content-Type: application/json');
-        echo json_encode($addresses);
+        echo json_encode($users);
     }
 
     public function updateUser() {
+        $db = new Database();
         $params = $_REQUEST;
-        $operation = new UserUpdate($req->user_id);
+        $operation = new UserUpdate($_REQUEST['user_id']);
         $users = $operation->update($params);
 
         header('Content-Type: application/json');
-        echo json_encode($addresses);
+        echo json_encode($users);
     }
 
     public function deleteUser() {
+        $db = new Database();
         $params = $_REQUEST;
         $operation = new UserDelete();
-        $users = $operation->delete($req->user_id);
+        $users = $operation->delete($_REQUEST['user_id']);
 
         header('Content-Type: application/json');
-        echo json_encode($addresses);
+        echo json_encode($users);
     }
 }

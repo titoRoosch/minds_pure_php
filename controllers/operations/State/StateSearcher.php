@@ -14,7 +14,6 @@ class StateSearcher
     {
         $query = "SELECT * FROM states";
 
-        // Se userid for fornecido, filtrar pelo ID do usuário
         if ($stateid !== null) {
             $query .= " WHERE id = :stateid";
             $statement = $this->pdo->prepare($query);

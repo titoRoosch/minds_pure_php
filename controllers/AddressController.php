@@ -6,7 +6,6 @@ require_once 'database.php';
 class AddressController {
 
     public function getAddress() {
-        echo 'teste';
         $db = new Database();
 
         var_dump($db);
@@ -18,16 +17,12 @@ class AddressController {
     }
 
     public function getAddressById() {
-        $addresses = array(
-            array(
-                'street' => 'Rua A',
-                'city' => 'Cidade A',
-                'state' => 'Estado A'
-            ),
+        $db = new Database();
 
-        );
+        var_dump($db);
+        $operation = new AddressSearcher($db);
+        $addresses = $operation->search($_REQUEST['city_id']);
 
-        // Retorna os endereços como uma resposta JSON
         header('Content-Type: application/json');
         echo json_encode($addresses);
     }

@@ -1,37 +1,26 @@
 <?php
 
+require_once 'operations/State/StateSearcher.php';
+require_once 'database.php';
+
 class AddressController {
 
     public function getState() {
-        $addresses = array(
-            array(
-                'street' => 'Rua A',
-                'city' => 'Cidade A',
-                'state' => 'Estado A'
-            ),
-            array(
-                'street' => 'Rua B',
-                'city' => 'Cidade B',
-                'state' => 'Estado B'
-            )
-        );
+        $db = new Database();
 
-        // Retorna os endereços como uma resposta JSON
+        $operation = new StateSearcher($db);
+        $users = $operation->search();
+
         header('Content-Type: application/json');
         echo json_encode($addresses);
     }
 
     public function getStateById() {
-        $addresses = array(
-            array(
-                'street' => 'Rua A',
-                'city' => 'Cidade A',
-                'state' => 'Estado A'
-            ),
+        $db = new Database();
 
-        );
+        $operation = new StateSearcher($db);
+        $users = $operation->search($_REQUEST['state_id']);
 
-        // Retorna os endereços como uma resposta JSON
         header('Content-Type: application/json');
         echo json_encode($addresses);
     }
