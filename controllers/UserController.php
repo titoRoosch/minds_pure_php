@@ -11,16 +11,22 @@ class UserController
 
     public function getUsers() {
 
+        $userid = null;
+
+        if(isset($_REQUEST['user_id'])){
+            $userid = $_REQUEST['user_id'];
+        }
+
         $db = new Database();
 
         $operation = new UserSearcher($db);
-        $users = $operation->search();
+        $users = $operation->search($userid);
 
         header('Content-Type: application/json');
         echo json_encode($users);
     }
 
-    public function getUserById() {
+    public function getUsersById() {
         
         $db = new Database();
         $operation = new UserSearcher();
@@ -31,7 +37,7 @@ class UserController
         echo json_encode($user);
     }
 
-    public function createUser() {
+    public function createUsers() {
         $db = new Database();
         $params = $_REQUEST;
         $operation = new UserCreate($params);
@@ -41,7 +47,7 @@ class UserController
         echo json_encode($users);
     }
 
-    public function updateUser() {
+    public function updateUsers() {
         $db = new Database();
         $params = $_REQUEST;
         $operation = new UserUpdate($_REQUEST['user_id']);
@@ -51,7 +57,7 @@ class UserController
         echo json_encode($users);
     }
 
-    public function deleteUser() {
+    public function deleteUsers() {
         $db = new Database();
         $params = $_REQUEST;
         $operation = new UserDelete();

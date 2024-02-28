@@ -12,11 +12,11 @@ class CitySearcher
 
     public function search($cityid = null)
     {
-        $query = "SELECT * FROM cities";
+        $query = "SELECT c.*, s.name, s.acr  FROM cities c LEFT JOIN states s on s.id  = c.state_id ";
 
         // Se userid for fornecido, filtrar pelo ID do usuário
         if ($cityid !== null) {
-            $query .= " WHERE id = :cityid";
+            $query .= " WHERE c.id = :cityid";
             $statement = $this->pdo->prepare($query);
             $statement->bindParam(':cityid', $cityid, PDO::PARAM_INT);
         } else {

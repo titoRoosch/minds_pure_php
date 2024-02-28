@@ -47,7 +47,6 @@ function handleRoute($method, $uri) {
     
     // Definir o nome do método do controlador com base no método HTTP e no tipo de recurso
     $controllerMethod = $method . ucfirst($resource);
-
         
     if ($resourceId !== null) {
         $controllerMethod . 'byId';

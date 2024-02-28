@@ -6,11 +6,17 @@ require_once 'database.php';
 class AddressController {
 
     public function getAddress() {
+        $addressid = null;
+
+        if(isset($_REQUEST['address_id'])){
+            $addressid = $_REQUEST['address_id'];
+        }
+
         $db = new Database();
 
         var_dump($db);
         $operation = new AddressSearcher($db);
-        $addresses = $operation->search();
+        $addresses = $operation->search(addressid);
 
         header('Content-Type: application/json');
         echo json_encode($addresses);
@@ -21,7 +27,7 @@ class AddressController {
 
         var_dump($db);
         $operation = new AddressSearcher($db);
-        $addresses = $operation->search($_REQUEST['city_id']);
+        $addresses = $operation->search($_REQUEST['address_id']);
 
         header('Content-Type: application/json');
         echo json_encode($addresses);

@@ -12,11 +12,16 @@ class UserSearcher
 
     public function search($userid = null)
     {
-        $query = "SELECT * FROM users";
+        $query = "SELECT u.*, a.street, a.postal_code, a.complement, c.name, s.name, s.acr 
+        FROM users u 
+        LEFT JOIN addresses a on u.address_id = a.id
+        LEFT JOIN cities c on u.city_id = c.id
+        LEFT JOIN states s on u.state_id = s.id
+        ";
 
         // Se userid for fornecido, filtrar pelo ID do usuário
         if ($userid !== null) {
-            $query .= " WHERE id = :userid";
+            $query .= " WHERE u.id = :userid";
             $statement = $this->pdo->prepare($query);
             $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
         } else {
