@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: pure_minds
+      MYSQL_USER: user
+      MYSQL_PASSWORD: my_password
+    ports:
+      - "3303:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - minds_pure_php_app_network
+
+  web:
+    build: .
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - minds_pure_php_app_network
+
+volumes:
+  db_data:
+networks:
+  minds_pure_php_app_network:
+    external: true
