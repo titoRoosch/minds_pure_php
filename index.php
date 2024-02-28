@@ -81,9 +81,9 @@ function handleRoute($method, $uri) {
         // Se houver um ID de recurso, passe-o para o método do controlador
         if ($resourceId !== null) {
             $controllerMethod . 'byId';
-            // $controller->$controllerMethod($resourceId);
+            $controller->$controllerMethod($resourceId);
         } else {
-            // $controller->$controllerMethod();
+            $controller->$controllerMethod();
         }
     } else {
         // Se o método do controlador não existir, retornar um erro 405

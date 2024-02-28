@@ -11,7 +11,8 @@ class UserController
 
     public function getUsers() {
 
-        $db = new Database('localhost', 'dbname', 'username', 'password');
+        echo 'teste';
+        $db = new Database();
 
         $operation = new UserSearcher($db);
         $users = $operation->search();

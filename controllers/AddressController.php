@@ -1,22 +1,18 @@
 <?php
 
+require_once 'operations/Address/AddressSearcher.php';
+require_once 'database.php';
+
 class AddressController {
 
     public function getAddress() {
-        $addresses = array(
-            array(
-                'street' => 'Rua A',
-                'city' => 'Cidade A',
-                'state' => 'Estado A'
-            ),
-            array(
-                'street' => 'Rua B',
-                'city' => 'Cidade B',
-                'state' => 'Estado B'
-            )
-        );
+        echo 'teste';
+        $db = new Database();
 
-        // Retorna os endereços como uma resposta JSON
+        var_dump($db);
+        $operation = new AddressSearcher($db);
+        $addresses = $operation->search();
+
         header('Content-Type: application/json');
         echo json_encode($addresses);
     }
