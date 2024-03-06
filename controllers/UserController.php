@@ -22,24 +22,53 @@ class UserController
         $operation = new UserSearcher($db);
         $users = $operation->search($userid);
 
-        header('Content-Type: application/json');
+        
         echo json_encode($users);
     }
 
     public function createUsers() {
+        $body = file_get_contents('php://input');
+        $params = json_decode($body, true);
+
         $db = new Database();
-        $params = $_REQUEST;
-        $operation = new UserCreate($params);
-        $users = $operation->create();
+
+        $operation = new UserSearcher($db);
+        $users = $operation->searchUserByEmail($params['email']);
+
+        if(count($users) !== 0) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'message' => 'e-mail já cadastrado para outro usuário',
+                'user' => $users
+            ]);
+            return;
+        }
+
+        $operation = new UserCreate($db);
+        $users = $operation->create($params);
 
         header('Content-Type: application/json');
         echo json_encode($users);
     }
 
     public function updateUsers() {
+        $body = file_get_contents('php://input');
+        $params = json_decode($body, true);
+
         $db = new Database();
-        $params = $_REQUEST;
-        $operation = new UserUpdate($_REQUEST['user_id']);
+
+        $operation = new UserSearcher($db);
+        $users = $operation->search($params['user_id']);
+
+        if(count($users) == 0) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'message' => 'usuário não encontrado',
+            ]);
+            return;
+        }
+
+        $operation = new UserUpdate($db);
         $users = $operation->update($params);
 
         header('Content-Type: application/json');
@@ -47,10 +76,23 @@ class UserController
     }
 
     public function deleteUsers() {
+        $userid = $_REQUEST['user_id'];
+
         $db = new Database();
-        $params = $_REQUEST;
-        $operation = new UserDelete();
-        $users = $operation->delete($_REQUEST['user_id']);
+
+        $operation = new UserSearcher($db);
+        $users = $operation->search($userid);
+
+        if(count($users) == 0) {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'message' => 'usuário não encontrado',
+            ]);
+            return;
+        }
+
+        $operation = new UserDelete($db);
+        $users = $operation->delete($userid);
 
         header('Content-Type: application/json');
         echo json_encode($users);

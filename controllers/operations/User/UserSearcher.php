@@ -12,9 +12,7 @@ class UserSearcher
 
     public function search($userid = null)
     {
-        $host='db'; $port='3306'; $dbname='pure_minds'; $username='user'; $password='my_password';
-        $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";
-        $this->pdo = new PDO($dsn, $username, $password);
+        $param = [];
 
         $query = "SELECT u.*, a.street, a.postal_code, a.complement, c.name, s.name, s.acr 
         FROM users u 
@@ -23,18 +21,21 @@ class UserSearcher
         LEFT JOIN states s on u.state_id = s.id
         ";
 
-        // Se userid for fornecido, filtrar pelo ID do usuário
         if ($userid !== null) {
             $query .= " WHERE u.id = :userid";
-            $statement = $this->pdo->prepare($query);
-            $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
-        } else {
-            $statement = $this->pdo->prepare($query);
-        }
+            $param = Array(':userid' => $userid);
+        } 
 
-        $statement->execute();
-        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $this->pdo->query($query, $param);
+    }
 
-        return $results;
+    public function searchUserByEmail($email) {
+
+        $query = "SELECT * FROM users WHERE email = :email";
+
+        $param = [];
+        $param[':email'] = $email;
+
+        return $this->pdo->query($query, $param);
     }
 }
