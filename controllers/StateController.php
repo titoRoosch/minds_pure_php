@@ -3,7 +3,7 @@
 require_once 'operations/State/StateSearcher.php';
 require_once 'database.php';
 
-class AddressController {
+class StateController {
 
     public function getState() {
 
@@ -16,20 +16,9 @@ class AddressController {
         $db = new Database();
 
         $operation = new StateSearcher($db);
-        $users = $operation->search($stateid);
+        $states = $operation->search($stateid);
 
         header('Content-Type: application/json');
-        echo json_encode($addresses);
+        echo json_encode($states);
     }
-
-    public function getStateById() {
-        $db = new Database();
-
-        $operation = new StateSearcher($db);
-        $users = $operation->search($_REQUEST['state_id']);
-
-        header('Content-Type: application/json');
-        echo json_encode($addresses);
-    }
-
 }

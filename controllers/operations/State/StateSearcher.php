@@ -5,26 +5,21 @@ class StateSearcher
 {
     private $pdo;
 
-    public function __construct(PDO $pdo)
+    public function __construct($pdo)
     {
         $this->pdo = $pdo;
     }
 
     public function search($stateid = null)
     {
+        $param = [];
         $query = "SELECT * FROM states";
 
         if ($stateid !== null) {
             $query .= " WHERE id = :stateid";
-            $statement = $this->pdo->prepare($query);
-            $statement->bindParam(':stateid', $stateid, PDO::PARAM_INT);
-        } else {
-            $statement = $this->pdo->prepare($query);
+            $param = Array(':stateid' => $stateid);
         }
 
-        $statement->execute();
-        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        return $results;
+        return $this->pdo->query($query, $param);
     }
 }

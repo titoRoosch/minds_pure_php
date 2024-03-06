@@ -14,23 +14,10 @@ class AddressController {
 
         $db = new Database();
 
-        var_dump($db);
         $operation = new AddressSearcher($db);
-        $addresses = $operation->search(addressid);
+        $addresses = $operation->search($addressid);
 
         header('Content-Type: application/json');
         echo json_encode($addresses);
     }
-
-    public function getAddressById() {
-        $db = new Database();
-
-        var_dump($db);
-        $operation = new AddressSearcher($db);
-        $addresses = $operation->search($_REQUEST['address_id']);
-
-        header('Content-Type: application/json');
-        echo json_encode($addresses);
-    }
-
 }

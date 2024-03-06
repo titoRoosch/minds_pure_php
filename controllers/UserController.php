@@ -26,17 +26,6 @@ class UserController
         echo json_encode($users);
     }
 
-    public function getUsersById() {
-        
-        $db = new Database();
-        $operation = new UserSearcher();
-
-        $user = $operation->search($_REQUEST['user_id']);
-
-        header('Content-Type: application/json');
-        echo json_encode($user);
-    }
-
     public function createUsers() {
         $db = new Database();
         $params = $_REQUEST;

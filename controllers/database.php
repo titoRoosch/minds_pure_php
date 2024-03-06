@@ -4,7 +4,7 @@ class Database
 {
     private $pdo;
 
-    public function __construct($host='localhost', $port='3303', $dbname='pure_minds', $username='user', $password='my_password')
+    public function __construct($host='db', $port='3306', $dbname='pure_minds', $username='user', $password='my_password')
     {
         // Configuração da conexão PDO
         $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";
